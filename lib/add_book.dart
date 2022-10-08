@@ -16,14 +16,14 @@ class _AddBookState extends State<AddBook> {
   TextEditingController authorEditingController = TextEditingController();
   TextEditingController dateEditingController = TextEditingController();
 
-  final CollectionReference<Book> userRef = FirebaseFirestore.instance.collection('books')
+  final CollectionReference<Book> bookRef = FirebaseFirestore.instance.collection('books')
       .withConverter<Book>(
     fromFirestore: (snapshots, _) => Book.fromJson(snapshots.data()!),
     toFirestore: (book, _) => book.toJson(),
   );
 
   addUser()async{
-    await userRef.add(
+    await bookRef.add(
 
       //問２　Bookのオブジェクトをそのままドキュメントとして保存できる。
         Book(
