@@ -33,7 +33,7 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   //問２　FirestoreのドキュメントデータをBookとして扱える。
-  final CollectionReference<Book> userRef = FirebaseFirestore.instance.collection('books')
+  final CollectionReference<Book> bookRef = FirebaseFirestore.instance.collection('books')
       .withConverter<Book>(
     fromFirestore: (snapshots, _) => Book.fromJson(snapshots.data()!),
     toFirestore: (book, _) => book.toJson(),
@@ -46,7 +46,7 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: [
           StreamBuilder<QuerySnapshot<Book>>(
-              stream:  userRef.orderBy('date').snapshots(),
+              stream:  bookRef.orderBy('date').snapshots(),
               builder: (context, snapshot){
                 if(snapshot.hasData){
                   final data = snapshot.data!;
